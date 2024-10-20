@@ -1,5 +1,6 @@
-use chrono::{NaiveDate, NaiveTime};
 mod docente {
+    use chrono::{NaiveDate, NaiveTime};
+
     enum TipoAssunzione {
         Ordinario,
         Emerito,
@@ -7,6 +8,7 @@ mod docente {
         Invitato,
         Associato,
     }
+
     enum StatoDocente {
         Attivo,
         Disattivato,
@@ -14,11 +16,12 @@ mod docente {
         Ferie,
         Permesso,
     }
+
     struct Docente {
         id: u32,
         nome: String,
         cognome: String,
-        data_nascita: String,
+        data_nascita: NaiveDate,
         tipo_assunzione: TipoAssunzione,
         ore_settimanali: u32,
         stato: StatoDocente,
@@ -26,6 +29,7 @@ mod docente {
         classi: Vec<Classe>,
         altri_ruoli: Vec<RuoloAggiuntivo>,
     }
+
     struct Materia {
         id: u32,
         nome: String,
@@ -38,6 +42,7 @@ mod docente {
         inizio_corso: String,
         fine_corso: String,
     }
+
     struct Classe {
         id: u32,
         grado: u32,
@@ -47,19 +52,28 @@ mod docente {
         docenti: Vec<Docente>,
         materie: Vec<Materia>,
     }
+
     struct RuoloAggiuntivo {
         id: u32,
         nome: String,
         docente: Box<Docente>,
     }
+
     struct Orario {
         id: u32,
         docente: Box<Docente>,
-        ora_inizio: u32,
-        ora_fine: u32,
-        minuto_inizio: u32,
-        minuto_fine: u32,
+        ora_inizio: NaiveTime,
+        ora_fine: NaiveTime,
         classe: Box<Classe>,
+    }
+
+    struct Istituto {
+        id: u32,
+        numero_classi: u32,
+        classi: Vec<Classe>,
+        preside: Docente,
+        vicepreside: Docente,
+        numerotelefono: String,
     }
 }
 // nome, cognome, data-nascita, tipo assunzione (ordinario, straordinario, invitato, emerito,
